@@ -164,7 +164,6 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    
 
     void Lose(string message)
     {
