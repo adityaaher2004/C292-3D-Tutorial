@@ -77,3 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fb3f0340395ca46afeff82e4190548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 4391298353568931973, guid: b8fa580cd2bf4154fbc0ab0788a1258e, type: 3}
+  cueBallPosition: {fileID: 0}
+  headBallPosition: {fileID: 0}

@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour
     private bool isGreen;
     private bool is8Ball = false;
     private bool isCueBall = false;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +24,12 @@ public class Ball : MonoBehaviour
         
     }
 
-    public bool isCueBall()
+    public bool isBallCue()
     {
         return isCueBall;
     }
 
-    public bool is8Ball()
+    public bool isEightBall()
     {
         return is8Ball;
     }
@@ -42,11 +44,11 @@ public class Ball : MonoBehaviour
         isRed = red;
         if (isRed)
         {
-            GetComponent<Renderer>.material.color = ConsoleColor.Red;
+            GetComponent<Renderer>().material.color = Color.red;
         }
         else
         {
-            GetComponent<Renderer>.material.color = ConsoleColor.Blue;
+            GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 
@@ -58,6 +60,6 @@ public class Ball : MonoBehaviour
     public void Make8Ball()
     {
         is8Ball = true;
-        GetComponent<Renderer>().material.color = ConsoleColor.Black;
+        GetComponent<Renderer>().material.color = Color.black;
     }
 }

@@ -13,11 +13,13 @@ public class GameSetup : MonoBehaviour
     [SerializeField] GameObject ballPrefab;
     [SerializeField] Transform cueBallPosition;
     [SerializeField] Transform headBallPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        ballRadius = ballPrefab.GetComponent<SphericalCollider>().radius;
+        ballRadius = ballPrefab.GetComponent<SphereCollider>().radius;
         ballDiameter = ballRadius * 2;
+        PlaceAllBalls();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class GameSetup : MonoBehaviour
     void PlaceCueBall()
     {
         GameObject ball = Instantiate(ballPrefab, cueBallPosition.position, Quaternion.identity);
-        ball.GetComponent<ball>().MakeCueBall();
+        ball.GetComponent<Ball>().MakeCueBall();
     }
 
     void PlaceAllBalls()
@@ -41,7 +43,7 @@ public class GameSetup : MonoBehaviour
     void PlaceEightBall(Vector3 position)
     {
         GameObject ball = Instantiate(ballPrefab, position, Quaternion.identity);
-        ball.GetComponent<ball>().Make8Ball();
+        ball.GetComponent<Ball>().Make8Ball();
     }
 
     void PlaceRandomBalls()
@@ -95,10 +97,11 @@ public class GameSetup : MonoBehaviour
                     PlaceBlueBall(currentPosition);
                 }
 
-                currentPosition += new Vector3(1, 0, 0).normalized + ballDiameter;
+                currentPosition += new Vector3(1, 0, 0).normalized * ballDiameter;
             }
 
-            firstInRowPosition += new Vector3(-1, 0, -1).normalized + ballDiameter;
+            firstInRowPosition += Vector3.back * ballRadius * Mathf.Sqrt(3) + Vector3.left * ballRadius;
+
             currentPosition = firstInRowPosition;
             NumInThisRow++;
 
