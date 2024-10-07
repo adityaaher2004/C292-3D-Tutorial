@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     bool isWaitingForBallsToStop = false;
     bool isGameOver = false;
     bool willSwapPlayers = false;
+    bool ballPocketed = false;
 
     [SerializeField] float shotTimer = 3f;
     private float currentTimer;
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
             if (allStopped)
             {
                 isWaitingForBallsToStop = false;
-                if (willSwapPlayers)
+                if (willSwapPlayers || !ballPocketed)
                 {
                     NextPlayerTurn();
                 }
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
                     SwitchCamera();
                 }
                 currentTimer = shotTimer;
+                ballPocketed = false;
             }
         }
     }
@@ -252,6 +254,7 @@ public class GameManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Ball")
         {
+            ballPocketed = true;
             if (CheckBall(other.gameObject.GetComponent<Ball>()))
             {
                 Destroy(other.gameObject);

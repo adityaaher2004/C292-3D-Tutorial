@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 49.483025, z: 0, w: 0}
+  m_margin: {x: 0, y: 49.483025, z: -111.87436, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2273,6 +2273,8 @@ MonoBehaviour:
   downAngle: 15
   power: 2
   cueStick: {fileID: 834377499}
+  maxDrawDistance: 10
+  powerText: {fileID: 634149763}
 --- !u!1 &990288000
 GameObject:
   m_ObjectHideFlags: 0
