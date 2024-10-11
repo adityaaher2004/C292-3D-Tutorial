@@ -667,6 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70a5ccd0d44e3043a697f192292dc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cueBallAdjustSpeed: 10
   shotTimer: 3
   movementThreshold: 0.001
   player1BallsText: {fileID: 672745614}
@@ -2271,7 +2272,7 @@ MonoBehaviour:
   rotationSpeed: 1440
   offset: {x: -4.65, y: 1.2, z: -0.1}
   downAngle: 15
-  power: 2
+  power: 1
   cueStick: {fileID: 834377499}
   maxDrawDistance: 10
   powerText: {fileID: 634149763}
@@ -3985,9 +3986,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3517432325736613506, guid: 60a9a19ab4b901d49a5e4648d2167211, type: 3}
+      propertyPath: redBallPrefab
+      value: 
+      objectReference: {fileID: 2745550646911021095, guid: d0109ebfeec1e9f4c8946106f9a1d712, type: 3}
+    - target: {fileID: 3517432325736613506, guid: 60a9a19ab4b901d49a5e4648d2167211, type: 3}
+      propertyPath: blueBallPrefab
+      value: 
+      objectReference: {fileID: 4713138577972455126, guid: 8e9b82caede77fd418edec938fa658c2, type: 3}
+    - target: {fileID: 3517432325736613506, guid: 60a9a19ab4b901d49a5e4648d2167211, type: 3}
       propertyPath: cueBallPosition
       value: 
       objectReference: {fileID: 1031741021}
+    - target: {fileID: 3517432325736613506, guid: 60a9a19ab4b901d49a5e4648d2167211, type: 3}
+      propertyPath: eightBallPrefab
+      value: 
+      objectReference: {fileID: 7819217940922062204, guid: 8bf2456f2248ec04b8de95c3be9f4582, type: 3}
     - target: {fileID: 3517432325736613506, guid: 60a9a19ab4b901d49a5e4648d2167211, type: 3}
       propertyPath: headBallPosition
       value: 

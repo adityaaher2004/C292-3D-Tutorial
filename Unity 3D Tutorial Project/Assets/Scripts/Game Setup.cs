@@ -14,6 +14,10 @@ public class GameSetup : MonoBehaviour
     [SerializeField] Transform cueBallPosition;
     [SerializeField] Transform headBallPosition;
 
+    [SerializeField] GameObject redBallPrefab;
+    [SerializeField] GameObject blueBallPrefab;
+    [SerializeField] GameObject eightBallPrefab;
+
     private void Awake()
     {
         ballRadius = ballPrefab.GetComponent<SphereCollider>().radius;
@@ -46,7 +50,7 @@ public class GameSetup : MonoBehaviour
 
     void PlaceEightBall(Vector3 position)
     {
-        GameObject ball = Instantiate(ballPrefab, position, Quaternion.identity);
+        GameObject ball = Instantiate(eightBallPrefab, position, Quaternion.identity);
         ball.GetComponent<Ball>().Make8Ball();
     }
 
@@ -59,14 +63,14 @@ public class GameSetup : MonoBehaviour
 
         void PlaceRedBall(Vector3 position)
         {
-            GameObject Ball = Instantiate(ballPrefab, position, Quaternion.identity);
+            GameObject Ball = Instantiate(redBallPrefab, position, Quaternion.identity);
             Ball.GetComponent<Ball>().BallSetup(true);
             redBallsRemaining--;
         }
 
         void PlaceBlueBall(Vector3 position)
         {
-            GameObject Ball = Instantiate(ballPrefab, position, Quaternion.identity);
+            GameObject Ball = Instantiate(blueBallPrefab, position, Quaternion.identity);
             Ball.GetComponent<Ball>().BallSetup(false);
             blueBallsRemaining--;
         }

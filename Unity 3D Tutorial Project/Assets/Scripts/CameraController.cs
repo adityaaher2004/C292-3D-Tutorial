@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
-        foreach (GameObject ball in GameObject.FindGameObjectsWithTag("Ball"))
+        foreach (GameObject ball in GameObject.FindGameObjectsWithTag("Cue Ball"))
         {
             if (ball.GetComponent<Ball>().isBallCue())
             {

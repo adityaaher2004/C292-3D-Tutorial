@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
@@ -19,6 +20,12 @@ public class GameManager : MonoBehaviour
     bool isGameOver = false;
     bool willSwapPlayers = false;
     bool ballPocketed = false;
+    int ballHitOrder = 0;
+    bool hitOpponentBallFirst = false;
+    bool canMoveCueBall = false;
+
+    bool adjustingCueBall = false;
+    [SerializeField] float cueBallAdjustSpeed;
 
     [SerializeField] float shotTimer = 3f;
     private float currentTimer;
@@ -33,6 +40,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI player2BallsText;
     [SerializeField] TextMeshProUGUI currentTurnText;
     [SerializeField] TextMeshProUGUI messageText;
+
+    [SerializeField] GameObject bottomRightCorner;
+    [SerializeField] GameObject topLeftCorner;
+
 
     [SerializeField] GameObject restartButton;
 
@@ -83,6 +94,61 @@ public class GameManager : MonoBehaviour
                 }
                 currentTimer = shotTimer;
                 ballPocketed = false;
+                ballHitOrder = 0;
+
+            }
+        }
+        if (hitOpponentBallFirst)
+        {
+            Debug.Log("Currently moving cue ball");
+
+            if (canMoveCueBall)
+            {
+                Debug.Log("In canMoveCueBall");
+                Ball cueBall = GameObject.FindGameObjectWithTag("Cue Ball").GetComponent<Ball>();
+
+                if (Input.GetKeyDown("return"))
+                {
+                    canMoveCueBall = false;
+                    hitOpponentBallFirst = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    if (cueBall.transform.position.x > bottomRightCorner.transform.position.x && cueBall.transform.position.x < topLeftCorner.transform.position.x)
+                    {
+                        cueBall.transform.position += new Vector3(-cueBallAdjustSpeed, 0, 0);
+                        Debug.Log("Cue ball le moving left arrow");
+                    }
+                }
+
+                if (Input.GetKeyDown("up"))
+                {
+                    if (cueBall.transform.position.z > bottomRightCorner.transform.position.z && cueBall.transform.position.z < topLeftCorner.transform.position.z)
+                    {
+                        cueBall.transform.position += new Vector3(0, 0, cueBallAdjustSpeed);
+                        Debug.Log("Cue ball le moving up");
+                    }
+                }
+
+                if (Input.GetKeyDown("right"))
+                {
+                    if (cueBall.transform.position.x > bottomRightCorner.transform.position.x && cueBall.transform.position.x < topLeftCorner.transform.position.x)
+                    {
+                        cueBall.transform.position += new Vector3(cueBallAdjustSpeed, 0, 0);
+                        Debug.Log("Cue ball le moving right");
+                    }
+                }
+
+                if (Input.GetKeyDown("down"))
+                {
+                    if (cueBall.transform.position.z > bottomRightCorner.transform.position.z && cueBall.transform.position.z < topLeftCorner.transform.position.z)
+                    {
+                        Debug.Log("Cue ball le moving down");
+                        cueBall.transform.position += new Vector3(0, 0, -cueBallAdjustSpeed);
+
+                    }
+                }
             }
         }
     }
@@ -151,6 +217,7 @@ public class GameManager : MonoBehaviour
         Lose(playerName + " hit an 8 ball too early and lost!");
     }
 
+
     bool CheckBall(Ball ball)
     {
         if (ball.isBallCue())
@@ -198,6 +265,7 @@ public class GameManager : MonoBehaviour
                 if (currentPlayer == CurrentPlayer.Player2)
                 {
                     willSwapPlayers = true;
+                    adjustingCueBall = true;
                 }
             }
             else
@@ -211,6 +279,7 @@ public class GameManager : MonoBehaviour
                 if (currentPlayer == CurrentPlayer.Player1)
                 {
                     willSwapPlayers = true;
+                    adjustingCueBall = true;
                 }
             }
         }
@@ -252,9 +321,20 @@ public class GameManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball")
+        if (other.gameObject.tag == "Ball" || other.gameObject.tag == "Cue Ball")
         {
             ballPocketed = true;
+            if (currentPlayer == CurrentPlayer.Player1 && ballHitOrder == 0 && !other.gameObject.GetComponent<Ball>().isBallRed())
+            {
+                hitOpponentBallFirst = true;
+                canMoveCueBall = true;
+            }
+            else if (currentPlayer == CurrentPlayer.Player2 && ballHitOrder == 0 && other.gameObject.GetComponent<Ball>().isBallRed())
+            {
+                hitOpponentBallFirst = true;
+                canMoveCueBall = true;
+            }
+            ballHitOrder = 1;
             if (CheckBall(other.gameObject.GetComponent<Ball>()))
             {
                 Destroy(other.gameObject);
